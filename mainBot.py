@@ -15,14 +15,21 @@ def start(update: Update, context: CallbackContext):
     last_name = update.effective_chat.last_name
     bot.send_message(chat_id=update.effective_chat.id,text=f"Hello {first_name} {last_name} !! Welcome To Medi Health NFG")
 
+def sendBill(update: Update, context: CallbackContext):
+    bot: Bot = context.bot
+    first_name = update.effective_chat.first_name
+    last_name = update.effective_chat.last_name
+    bot.send_message(chat_id=update.effective_chat.id,text=f"Sorry :( {first_name} {last_name} !! You Have No Bills.")
+
 def sendPhoto(update: Update , context: CallbackContext):
     photo = open('logo.png' , 'rb')
-    send_caption = '<b>About NFG ℹ️ : \n\nThis is a bot built by Python developer of Northfox Group and this bot is for sending every bill and new information to every customer of Medi Health NFG. \n\nIf you also want this software, you can contact us directly.\n\n<a href="mailto:northfoxgroup@hotmail.com">Mail Us</a> +91 9106693088 </b>'
+    send_caption = '<b>About NFG ℹ️ : \n\nThis is a bot built by Python developer of Northfox Group and this bot is for sending every bill and new information to every customer of Medi Health NFG. \n\nIf you also want this software, you can contact us directly.\n\n<a href="https://mailto:northfoxgroup@hotmail.com">Mail Us</a> +91 9106693088 </b>'
 
     bot:Bot = context.bot
     bot.send_photo(chat_id=update.effective_chat.id,photo=photo , caption=send_caption , parse_mode='html')
 
 dispatcher.add_handler(CommandHandler("start", start))
 dispatcher.add_handler(CommandHandler("about", sendPhoto))
+dispatcher.add_handler(CommandHandler("sendbill", sendBill))
 
 updater.start_polling()
